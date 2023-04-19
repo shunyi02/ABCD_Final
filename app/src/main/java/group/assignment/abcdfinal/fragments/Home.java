@@ -1,5 +1,7 @@
 package group.assignment.abcdfinal.fragments;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +24,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +60,6 @@ public class Home extends Fragment {
 
         init(view);
 
-        reference = FirebaseFirestore.getInstance().collection("Posts").document(user.getUid());
-
         list = new ArrayList<>();
         adapter = new HomeAdapter(list, getContext());
         recyclerView.setAdapter(adapter);
@@ -87,6 +85,7 @@ public class Home extends Fragment {
 
     private void loadDataFromFireStore() {
 
+
         CollectionReference documentReference = FirebaseFirestore.getInstance().collection("Users")
                 .document(user.getUid())
                 .collection("Post Images");
@@ -94,27 +93,26 @@ public class Home extends Fragment {
         reference.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null){
-                    Log.e("Error: ", error.getMessage());
-                }
-                assert value != null;
-                for (QueryDocumentSnapshot snapshot:value){
+                if (value.exists()) {
+                    HomeModel model = value.toObject(HomeModel.class);
 
-                    list.add(new HomeModel(snapshot.get("userName").toString(),
-                            snapshot.get("timestamp").toString(),
-                            snapshot.get("profileImage").toString(),
-                            snapshot.get("postImage").toString(),
-                            snapshot.get("uid").toString(),
-                            snapshot.get("comments").toString(),
-                            snapshot.get("description").toString(),
-                            snapshot.get("id").toString(),
-                            Integer.parseInt(snapshot.get("likeCount").toString())
+                    list.add(new HomeModel(
+                            model.getUserName(),
+                            model.getProfileImage(),
+                            model.getImageUrl(),
+                            model.getUid(),
+                            model.getComments(),
+                            model.getDescription(),
+                            model.getId(),
+                            model.getTimeStamp(),
+                            model.getLikeCount()
                     ));
                     adapter.notifyDataSetChanged();
+                } else {
+                    Log.w(TAG, "Snapshot does not exist");
                 }
+
             }
         });
-
-        adapter.notifyDataSetChanged();
     }
 }

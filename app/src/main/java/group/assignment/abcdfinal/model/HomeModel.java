@@ -1,24 +1,31 @@
 package group.assignment.abcdfinal.model;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class HomeModel {
 
-    private String userName,timeStamp,profileImage,postImage,uid, comment, description,id;
+    private String userName, profileImage, imageUrl, uid, comments, description, id;
+
+    @ServerTimestamp
+    private Date timeStamp;
 
     private int likeCount;
 
-    public HomeModel(){
+    public HomeModel() {
     }
 
-    public HomeModel(String userName, String timeStamp, String profileImage, String postImage, String uid, String comment, String description,String id, int likeCount) {
+    public HomeModel(String userName, String profileImage, String imageUrl, String uid, String comments, String description, String id, Date timeStamp, int likeCount) {
         this.userName = userName;
-        this.timeStamp = timeStamp;
         this.profileImage = profileImage;
-        this.postImage = postImage;
+        this.imageUrl = imageUrl;
         this.uid = uid;
-        this.comment = comment;
+        this.comments = comments;
         this.description = description;
-        this.likeCount = likeCount;
         this.id = id;
+        this.timeStamp = timeStamp;
+        this.likeCount = likeCount;
     }
 
     public String getUserName() {
@@ -29,14 +36,6 @@ public class HomeModel {
         this.userName = userName;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
     public String getProfileImage() {
         return profileImage;
     }
@@ -45,12 +44,12 @@ public class HomeModel {
         this.profileImage = profileImage;
     }
 
-    public String getPostImage() {
-        return postImage;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setPostImage(String postImage) {
-        this.postImage = postImage;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getUid() {
@@ -61,12 +60,12 @@ public class HomeModel {
         this.uid = uid;
     }
 
-    public String getComment() {
-        return comment;
+    public String getComments() {
+        return comments;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public String getDescription() {
@@ -77,19 +76,27 @@ public class HomeModel {
         this.description = description;
     }
 
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 }

@@ -17,6 +17,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/drawable/ic_like.xml" value="0.178125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/drawable/ic_like_fill.xml" value="0.178125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/drawable/ic_next.xml" value="0.2234375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/drawable/ic_person.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/drawable/ic_search.xml" value="0.21979166666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/drawable/ic_share.xml" value="0.178125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/drawable/text_box.xml" value="0.37864583333333335" />
@@ -29,6 +30,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/layout/fragment_home.xml" value="0.20729166666666668" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/layout/fragment_login.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/layout/fragment_search.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/layout/home_items.xml" value="0.20729166666666668" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/layout/image_items.xml" value="0.3625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ABCDFinal/app/src/main/res/layout/profile_image_items.xml" value="0.3625" />

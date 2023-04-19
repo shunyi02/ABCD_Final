@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_home));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_like));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_like_fill));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_person));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -66,15 +65,11 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
                         break;
-
                     case 3:
-                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_like_fill);
-                        break;
-
-                    case 4:
-                        tabLayout.getTabAt(4).setIcon(android.R.drawable.ic_menu_help);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_person);
                         break;
                 }
+
 
             }
 
@@ -94,11 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 3:
-                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_like);
-                        break;
-
-                    case 4:
-                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_like_fill);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_person);
                         break;
                 }
             }
@@ -119,15 +110,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 3:
-                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_like_fill);
-                        break;
-
-                    case 4:
-                        tabLayout.getTabAt(4).setIcon(android.R.drawable.ic_menu_help);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_person);
                         break;
                 }
             }
         });
+
     }
+
+
 
 }
