@@ -47,11 +47,14 @@
 
     <LinearLayout
         android:id="@+id/linear_1"
-        android:layout_below="@id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolBar"
         android:orientation="horizontal">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
@@ -62,30 +65,40 @@
             app:civ_border_color="#000"
             app:civ_border_width="1dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/nameTV"
+        <ImageButton
+            android:id="@+id/edit_profileImage"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/ic_edit"
+            android:elevation="3dp"
+            android:layout_alignEnd="@id/profileImage"
+            android:layout_alignParentBottom="@id/profileImage"
+            android:src="@drawable/ic_circle" />
+        </RelativeLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="username"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/statusTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:text="Here is the description for the user"
-            android:textColor="@color/black"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/nameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="username"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statusTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:text="Here is the description for the user"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
     </LinearLayout>
 

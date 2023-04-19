@@ -30,6 +30,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.karumi:dexter:6.2.3'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     implementation 'com.android.support:multidex:1.0.3'

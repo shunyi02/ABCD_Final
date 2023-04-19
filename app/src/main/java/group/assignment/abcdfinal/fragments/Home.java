@@ -1,6 +1,7 @@
 package group.assignment.abcdfinal.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,10 +86,34 @@ public class Home extends Fragment {
     }
 
     private void loadDataFromFireStore() {
-        list.add(new HomeModel("Sy","01/11/2020","","","000001",100));
-        list.add(new HomeModel("Akau","02/01/2020","","","512378",10));
-        list.add(new HomeModel("Abu","11/11/2020","","","111111",20));
-        list.add(new HomeModel("Ali","09/12/2020","","","123331",8));
+
+        CollectionReference documentReference = FirebaseFirestore.getInstance().collection("Users")
+                .document(user.getUid())
+                .collection("Post Images");
+
+        reference.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null){
+                    Log.e("Error: ", error.getMessage());
+                }
+                assert value != null;
+                for (QueryDocumentSnapshot snapshot:value){
+
+                    list.add(new HomeModel(snapshot.get("userName").toString(),
+                            snapshot.get("timestamp").toString(),
+                            snapshot.get("profileImage").toString(),
+                            snapshot.get("postImage").toString(),
+                            snapshot.get("uid").toString(),
+                            snapshot.get("comments").toString(),
+                            snapshot.get("description").toString(),
+                            snapshot.get("id").toString(),
+                            Integer.parseInt(snapshot.get("likeCount").toString())
+                    ));
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
 
         adapter.notifyDataSetChanged();
     }

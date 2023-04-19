@@ -5,7 +5,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:scaleTyp="centerCrop"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:contentDescription="@null"/>
