@@ -99,6 +99,14 @@ public class LoginFragment extends Fragment {
     }
 
     private void clickListener() {
+
+        forgotTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ReplacerActivity) getActivity()).setFragment(new ForgotPassword());
+            }
+        });
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

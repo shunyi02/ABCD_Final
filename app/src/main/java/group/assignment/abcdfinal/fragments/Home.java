@@ -60,6 +60,8 @@ public class Home extends Fragment {
 
         init(view);
 
+        reference = FirebaseFirestore.getInstance().collection("Posts").document(user.getUid());
+
         list = new ArrayList<>();
         adapter = new HomeAdapter(list, getContext());
         recyclerView.setAdapter(adapter);

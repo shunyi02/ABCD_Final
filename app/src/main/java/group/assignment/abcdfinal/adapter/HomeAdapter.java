@@ -28,7 +28,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
 
     Context context;
 
-    public HomeAdapter(List<HomeModel> list,Context context){
+    public HomeAdapter(List<HomeModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -88,7 +88,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         private CircleImageView profileImage;
         private TextView userNameTv, timeTv, likeCountTv, descriptionTv;
         private ImageView imageView;
-        private ImageButton likeBtn, cmtBtn, ShareBtn;
+        private ImageButton likeBtn, commentBtn, shareBtn;
 
         public HomeHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,13 +99,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
             timeTv = itemView.findViewById(R.id.timeTv);
             likeCountTv = itemView.findViewById(R.id.likeCountTv);
             likeBtn = itemView.findViewById(R.id.likeBtn);
-            cmtBtn = itemView.findViewById(R.id.cmtBtn);
-            ShareBtn = itemView.findViewById(R.id.shrBtn);
+            commentBtn = itemView.findViewById(R.id.cmtBtn);
+            shareBtn = itemView.findViewById(R.id.shrBtn);
             descriptionTv = itemView.findViewById(R.id.descTv);
 
 
         }
     }
-
 
 }

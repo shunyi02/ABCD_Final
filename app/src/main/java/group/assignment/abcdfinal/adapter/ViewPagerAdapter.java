@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-
 import group.assignment.abcdfinal.fragments.Add;
 import group.assignment.abcdfinal.fragments.Home;
 import group.assignment.abcdfinal.fragments.Profile;
