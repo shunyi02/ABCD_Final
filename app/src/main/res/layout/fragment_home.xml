@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.Home">
-
     <androidx.appcompat.widget.Toolbar
-        android:layout_alignParentTop="true"
-        android:id="@+id/toolBar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        android:layout_alignParentTop="True"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:elevation="2dp"
@@ -31,21 +30,25 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
-            <ImageView
-                android:contentDescription="@null"
+            <ImageButton
                 android:id="@+id/sendBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/ic_chat"
-                android:layout_margin="12dp"/>
+                android:contentDescription="@null" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolBar" />
+        android:layout_below="@id/toolbar" />
+
 </RelativeLayout>

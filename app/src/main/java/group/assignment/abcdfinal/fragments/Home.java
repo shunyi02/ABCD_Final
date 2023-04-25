@@ -20,10 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,11 +71,11 @@ public class Home extends Fragment {
 
     private void init(View view) {
 
-        Toolbar toolbar = view.findViewById(R.id.toolBar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         if (getActivity() != null)
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        recyclerView.findViewById(R.id.recycleView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -88,33 +86,27 @@ public class Home extends Fragment {
     private void loadDataFromFireStore() {
 
 
-        CollectionReference documentReference = FirebaseFirestore.getInstance().collection("Users")
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference postImagesRef = db.collection("Users")
                 .document(user.getUid())
                 .collection("Post Images");
 
-        reference.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.exists()) {
-                    HomeModel model = value.toObject(HomeModel.class);
+        postImagesRef.addSnapshotListener((value, error) -> {
+            if (error != null) {
+                Log.w(TAG, "Listen failed.", error);
+                return;
+            }
 
-                    list.add(new HomeModel(
-                            model.getUserName(),
-                            model.getProfileImage(),
-                            model.getImageUrl(),
-                            model.getUid(),
-                            model.getComments(),
-                            model.getDescription(),
-                            model.getId(),
-                            model.getTimeStamp(),
-                            model.getLikeCount()
-                    ));
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Log.w(TAG, "Snapshot does not exist");
+            if (value != null && !value.isEmpty()) {
+                for (QueryDocumentSnapshot doc : value) {
+                    HomeModel model = doc.toObject(HomeModel.class);
+                    list.add(model);
                 }
-
+                adapter.notifyDataSetChanged();
+            } else {
+                Log.d(TAG, "No documents found.");
             }
         });
     }
+
 }

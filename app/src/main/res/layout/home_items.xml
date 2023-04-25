@@ -44,10 +44,10 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="220dp"
+        android:layout_below="@id/profileImage"
         android:orientation="horizontal"
-        android:scaleType="centerCrop"
-        android:layout_below="@id/profileImage" />
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -92,10 +92,10 @@
         android:id="@+id/likeCountTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100 likes"
-        android:textStyle="bold"
         android:layout_below="@id/descTv"
         android:paddingStart="5dp"
-        android:paddingEnd="5dp"/>
+        android:paddingEnd="5dp"
+        android:text="100 likes"
+        android:textStyle="bold" />
 
 </RelativeLayout>

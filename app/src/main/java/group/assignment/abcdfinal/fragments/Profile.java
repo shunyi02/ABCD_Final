@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,19 +57,15 @@ public class Profile extends Fragment {
     private CircleImageView profileImage;
     private Button followBtn;
     private RecyclerView recyclerView;
-
     private LinearLayout countLayout;
+    private FirebaseUser user;
+    private ImageButton editProfileBtn;
 
     boolean isMyProfile = true;
     String uid;
-    FirestoreRecyclerAdapter<PostImageModel,PostImageHolder>  adapter;
+    FirestoreRecyclerAdapter<PostImageModel, PostImageHolder> adapter;
 
-    private FirebaseUser user;
-
-    private ImageView editProfileBtn;
-
-    public Profile() {
-        // Required empty public constructor
+    public Profile(){
     }
 
     @Override
@@ -84,20 +81,21 @@ public class Profile extends Fragment {
 
         init(view);
 
-        if (isMyProfile) {
+        if (isMyProfile){
             followBtn.setVisibility(View.GONE);
             countLayout.setVisibility(View.VISIBLE);
-        }else{
+        }else {
             followBtn.setVisibility(View.VISIBLE);
             countLayout.setVisibility(View.GONE);
         }
 
         loadBasicData();
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext() , 3));
 
-        loadPostImages();
-        recyclerView.setAdapter(adapter);
+        loadPostImage();
+
+        recyclerView.setAdapter(adapter );
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,28 +109,26 @@ public class Profile extends Fragment {
         });
     }
 
-    private void init(View view){
+    private void init(View view) {
 
-        Toolbar toolbar = view.findViewById(R.id.toolBar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         assert getActivity() !=null;
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        nameTv = view.findViewById(R.id.nameTV);
-        statusTv = view.findViewById(R.id.statusTv);
-        toolbarNameTv = view.findViewById(R.id.toolbarNameTv);
+        nameTv = view.findViewById(R.id.nameTv);
+        statusTv = view.findViewById(R.id.statusTV);
+        toolbarNameTv = view.findViewById(R.id.toolbarNameTV);
         followersCountTv = view.findViewById(R.id.followersCountTv);
         followingCountTv = view.findViewById(R.id.followingCountTv);
         postCountTv = view.findViewById(R.id.postCountTv);
         profileImage = view.findViewById(R.id.profileImage);
         followBtn = view.findViewById(R.id.followBtn);
         recyclerView = view.findViewById(R.id.recyclerView);
-        countLayout =view.findViewById(R.id.countLayout);
+        countLayout = view.findViewById(R.id.countLayout);
         editProfileBtn = view.findViewById(R.id.edit_profileImage);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
-
     }
 
     private void loadBasicData() {
@@ -145,13 +141,14 @@ public class Profile extends Fragment {
 
                 if (error != null)
                     return;
-                assert value != null;
 
+                assert value != null;
                 if (value.exists()){
+
                     String name = value.getString("name");
                     String status = value.getString("status");
-                    int followers = value.getLong("followers").intValue();
-                    int following = value.getLong("following ").intValue();
+                    int followers = value.getLong("name").intValue();
+                    int following = value.getLong("name").intValue();
 
                     String profileURL = value.getString("profileImage");
 
@@ -166,23 +163,22 @@ public class Profile extends Fragment {
                             .placeholder(R.drawable.ic_person)
                             .timeout(6500)
                             .into(profileImage);
-                }
 
+                }
             }
         });
     }
 
-    private void loadPostImages(){
+    private void loadPostImage(){
 
-        if (isMyProfile){
-            uid = user.getUid();
+        if (isMyProfile) {
+            user.getUid();
         }else {
 
         }
 
-        uid =user.getUid();
 
-        DocumentReference reference = FirebaseFirestore.getInstance().collection("Users").document(uid);
+        DocumentReference reference = FirebaseFirestore.getInstance().collection("Images").document(uid);
 
         Query query = reference.collection("Images");
 
@@ -190,8 +186,7 @@ public class Profile extends Fragment {
                 .setQuery(query,PostImageModel.class)
                 .build();
 
-            adapter = new FirestoreRecyclerAdapter<PostImageModel,PostImageHolder>(options){
-
+       adapter = new FirestoreRecyclerAdapter<PostImageModel, PostImageHolder>(options) {
             @NonNull
             @Override
             public PostImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -206,22 +201,10 @@ public class Profile extends Fragment {
                         .load(model.getImageUrl())
                         .timeout(6500)
                         .into(holder.imageView);
+
             }
         };
 
-
-
-    }
-
-    private static class PostImageHolder extends RecyclerView.ViewHolder{
-
-        private ImageView imageView;
-
-        public PostImageHolder(@NonNull View itemView){
-            super(itemView);
-
-            imageView = itemView.findViewById(R.id.imageView);
-        }
     }
 
     @Override
@@ -233,34 +216,50 @@ public class Profile extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        adapter.stopListening();
+    }
+
+    private class PostImageHolder extends RecyclerView.ViewHolder {
+
+        private ImageView imageView;
+
+        public PostImageHolder(@NonNull View itemView) {
+            super(itemView);
+
+            imageView.findViewById(R.id.imageView);
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
             Uri uri = result.getUri();
-            
+
             uploadImage(uri);
         }
     }
 
     private void uploadImage(Uri uri) {
-        final StorageReference reference = FirebaseStorage.getInstance().getReference().child("Profile Images");
+
+        StorageReference reference = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
         reference.putFile(uri)
                 .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
                         if (task.isSuccessful()){
 
                             reference.getDownloadUrl()
                                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
+
                                             String imageURL = uri.toString();
 
                                             UserProfileChangeRequest.Builder request = new UserProfileChangeRequest.Builder();
@@ -269,7 +268,7 @@ public class Profile extends Fragment {
                                             user.updateProfile(request.build());
 
                                             Map<String, Object> map = new HashMap<>();
-                                            map.put("profileImage",imageURL);
+                                            map.put("profileImage", imageURL);
 
                                             FirebaseFirestore.getInstance().collection("Users")
                                                     .document(user.getUid())
@@ -277,18 +276,21 @@ public class Profile extends Fragment {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful())
-                                                        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(getContext(), "Update Successful", Toast.LENGTH_SHORT).show();
                                                     else
-                                                        Toast.makeText(getContext(),"Error: " + task.getException().getMessage(),
+                                                        Toast.makeText(getContext(),"Error" + task.getException().getMessage(),
                                                                 Toast.LENGTH_SHORT).show();
                                                 }
                                             });
+
+
                                         }
                                     });
                         }else {
-                            Toast.makeText(getContext(),"Error: " + task.getException().getMessage(),
+                            Toast.makeText(getContext(),"Error" + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
     }

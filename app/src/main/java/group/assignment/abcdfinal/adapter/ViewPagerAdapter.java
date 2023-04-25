@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import group.assignment.abcdfinal.fragments.Add;
 import group.assignment.abcdfinal.fragments.Home;
+import group.assignment.abcdfinal.fragments.Notification;
 import group.assignment.abcdfinal.fragments.Profile;
 import group.assignment.abcdfinal.fragments.Search;
 
@@ -14,6 +16,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public ViewPagerAdapter(@NonNull FragmentManager fm, int tabCount) {
         super(fm);
+        noOfTabs = tabCount;
     }
 
 
@@ -32,6 +35,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new Add();
 
             case 3:
+                return new Notification();
+            case 4:
                 return new Profile();
 
             default:

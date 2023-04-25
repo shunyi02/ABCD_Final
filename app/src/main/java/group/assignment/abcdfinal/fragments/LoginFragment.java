@@ -1,7 +1,6 @@
 package group.assignment.abcdfinal.fragments;
 
 import static android.content.ContentValues.TAG;
-import static group.assignment.abcdfinal.fragments.CreateAccountFragment.EMAIL_REGEX;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -114,7 +113,7 @@ public class LoginFragment extends Fragment {
                 String email = emailEt.getText().toString();
                 String password = passwordEt.getText().toString();
 
-                if (email.isEmpty() || email.matches(EMAIL_REGEX)) {
+                if (email.isEmpty()) {
                     emailEt.setError("Invalid Email");
                     return;
                 }

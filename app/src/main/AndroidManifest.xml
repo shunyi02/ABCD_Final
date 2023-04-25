@@ -16,7 +16,7 @@
         android:theme="@style/Theme.ABCD">
         <activity
             android:name=".ReplacerActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -29,7 +29,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

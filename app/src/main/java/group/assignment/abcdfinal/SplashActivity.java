@@ -19,16 +19,15 @@ import com.google.firebase.auth.FirebaseUser;
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (user == null) {
-                    startActivity(new Intent(SplashActivity.this, ReplacerActivity.class));
-                } else {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                }
-                finish();
+        new Handler().postDelayed(() -> {
+            if (user == null) {
+                startActivity(new Intent(SplashActivity.this, ReplacerActivity.class));
+
+            } else {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+
             }
+            finish();
         }, 2500);
     }
 }

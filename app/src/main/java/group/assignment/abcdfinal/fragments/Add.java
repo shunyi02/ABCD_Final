@@ -32,7 +32,6 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -118,19 +117,16 @@ public class Add extends Fragment {
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 final StorageReference storageReference = storage.getReference().child("Post Images/"+System.currentTimeMillis());
                 storageReference.putFile(imageUri)
-                        .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                if (task.isSuccessful()){
-                                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            String imageURL = uri.toString();
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()){
+                                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String imageURL = uri.toString();
 
-                                            uploadData(uri.toString());
-                                        }
-                                    });
-                                }
+                                        uploadData(uri.toString());
+                                    }
+                                });
                             }
                         });
 
@@ -225,15 +221,20 @@ public class Add extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
 
-            Uri image = data.getData();
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
-            Glide.with(getContext())
-                    .load(image)
-                    .into(imageView);
-            imageView.setVisibility(View.VISIBLE);
-            nextBtn.setVisibility(View.VISIBLE);
+            if (resultCode == RESULT_OK) {
+                Uri image = result.getUri();
+
+                Glide.with(getContext())
+                        .load(image)
+                        .into(imageView);
+
+                imageView.setVisibility(View.VISIBLE);
+                nextBtn.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

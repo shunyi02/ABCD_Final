@@ -77,11 +77,8 @@ public class CreateAccountFragment extends Fragment {
 
     private void clickListener() {
 
-        loginTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((ReplacerActivity)getActivity()).setFragment(new LoginFragment());
-            }
+        loginTv.setOnClickListener(view -> {
+            ((ReplacerActivity)getActivity()).setFragment(new LoginFragment());
         });
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,17 +96,17 @@ public class CreateAccountFragment extends Fragment {
                 }
 
                 if (email.isEmpty() || !email.matches(EMAIL_REGEX)){
-                    nameEt.setError("Please input a valid email");
+                    emailEt.setError("Please input a valid email");
                     return;
                 }
 
                 if (password.isEmpty() || password.length() < 8 ){
-                    nameEt.setError("Please input a valid password");
+                    passwordEt.setError("Please input a valid password");
                     return;
                 }
 
                 if (!password.equals(confirmPass)){
-                    nameEt.setError("Please not match");
+                    confirmPasswordEt.setError("Please not match");
                     return;
                 }
 
@@ -147,7 +144,7 @@ public class CreateAccountFragment extends Fragment {
                                         }
                                     });
 
-                            uploadUser(user,name,email);
+                            uploadUser(user,name,password);
 
                         }else {
                             progressBar.setVisibility(View.GONE);
