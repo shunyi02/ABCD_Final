@@ -8,12 +8,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import group.assignment.abcdfinal.adapter.ViewPagerAdapter;
+import group.assignment.abcdfinal.fragments.Search;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Search.OnDataPass {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
     ViewPagerAdapter pagerAdapter;
 
     @Override
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_like));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_like_fill));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_person));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         tabLayout.getTabAt(3).setIcon(R.drawable.ic_like_fill);
                         break;
                     case 4:
-                        tabLayout.getTabAt(4).setIcon(android.R.drawable.ic_menu_help);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_person);
                         break;
                 }
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         tabLayout.getTabAt(3).setIcon(R.drawable.ic_like);
                         break;
                     case 4:
-                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_like_fill);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_person);
                         break;
                 }
             }
@@ -120,11 +120,31 @@ public class MainActivity extends AppCompatActivity {
                         tabLayout.getTabAt(3).setIcon(R.drawable.ic_like_fill);
                         break;
                     case 4:
-                        tabLayout.getTabAt(4).setIcon(android.R.drawable.ic_menu_help);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_person);
                 }
             }
         });
 
     }
 
+    public static String USER_ID;
+    public static boolean IS_SEARCHED_USER = false;
+
+    @Override
+    public void onChange(String uid) {
+        USER_ID = uid;
+        IS_SEARCHED_USER = true;
+        viewPager.setCurrentItem(4);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        if (viewPager.getCurrentItem() == 4) {
+            viewPager.setCurrentItem(0);
+            IS_SEARCHED_USER = false;
+        }else
+         super.onBackPressed();
+    }
 }

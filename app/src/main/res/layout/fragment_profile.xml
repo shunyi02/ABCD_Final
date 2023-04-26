@@ -54,32 +54,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/profileImage"
-        app:civ_border_color="#000"
-        app:civ_border_width="1dp"
-        android:src="@drawable/ic_person"
-        android:layout_margin="14dp"/>
 
-        <ImageButton
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_alignEnd="@id/profileImage"
-            android:layout_alignBottom="@id/profileImage"
-            android:src="@drawable/ic_edit"
-            android:background="@drawable/ic_circle"
-            android:elevation="3dp"
-            android:id="@+id/edit_profileImage"
-            android:layout_alignRight="@id/profileImage"/>
-        </RelativeLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="14dp"
+                android:src="@drawable/ic_person"
+                app:civ_border_color="#000"
+                app:civ_border_width="1dp" />
 
-    <LinearLayout
+            <ImageButton
+                android:visibility="gone"
+                android:id="@+id/edit_profileImage"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignEnd="@id/profileImage"
+                android:layout_alignRight="@id/profileImage"
+                android:layout_alignBottom="@id/profileImage"
+                android:background="@drawable/ic_circle"
+                android:elevation="3dp"
+                android:src="@drawable/ic_edit" />
+
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -122,8 +121,7 @@
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -210,15 +208,18 @@
 
 
         <Button
+            android:layout_below="@id/countLayout"
+            android:layout_marginTop="12dp"
             android:id="@+id/followBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="@drawable/btn_bg"
-            android:visibility="gone"
+            android:visibility="visible"
             android:minWidth="160dp"
             android:text="Follow"
             android:textColor="@android:color/white" />
+
 
     </RelativeLayout>
 

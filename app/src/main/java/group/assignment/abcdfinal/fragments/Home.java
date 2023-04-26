@@ -38,6 +38,8 @@ public class Home extends Fragment {
     private List<HomeModel> list;
     private FirebaseUser user;
 
+    public static int LIST_SIZE = 0;
+
     DocumentReference reference;
 
     public Home() {
@@ -96,6 +98,7 @@ public class Home extends Fragment {
                 Log.w(TAG, "Listen failed.", error);
                 return;
             }
+            list.clear();
 
             if (value != null && !value.isEmpty()) {
                 for (QueryDocumentSnapshot doc : value) {
@@ -103,6 +106,10 @@ public class Home extends Fragment {
                     list.add(model);
                 }
                 adapter.notifyDataSetChanged();
+
+
+                LIST_SIZE = list.size();
+
             } else {
                 Log.d(TAG, "No documents found.");
             }
