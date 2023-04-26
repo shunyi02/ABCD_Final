@@ -354,6 +354,12 @@ public class Profile extends Fragment{
                         .into(holder.imageView);
 
             }
+
+           @Override
+           public int getItemCount(){
+               return super.getItemCount();
+
+           }
         };
 
     }

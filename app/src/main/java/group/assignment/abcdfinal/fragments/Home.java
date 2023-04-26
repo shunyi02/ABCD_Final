@@ -2,11 +2,13 @@ package group.assignment.abcdfinal.fragments;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import group.assignment.abcdfinal.Chat;
 import group.assignment.abcdfinal.R;
 import group.assignment.abcdfinal.adapter.HomeAdapter;
 import group.assignment.abcdfinal.model.HomeModel;
@@ -37,6 +40,7 @@ public class Home extends Fragment {
     HomeAdapter adapter;
     private List<HomeModel> list;
     private FirebaseUser user;
+    private ImageButton chatButton;
 
     public static int LIST_SIZE = 0;
 
@@ -67,6 +71,14 @@ public class Home extends Fragment {
         recyclerView.setAdapter(adapter);
 
         loadDataFromFireStore();
+        chatButton = view.findViewById(R.id.sendBtn);
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Chat.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
